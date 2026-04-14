@@ -1,0 +1,592 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .cp-root {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--color-background-tertiary);
+    color: var(--color-text-primary);
+    min-height: 100vh;
+  }
+
+  .cp-hero {
+    background: #0C1B2E;
+    padding: 56px 40px 44px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cp-hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(55,138,221,0.08);
+  }
+  .cp-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 40%;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(29,158,117,0.07);
+  }
+  .cp-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #1D9E75;
+    margin-bottom: 12px;
+  }
+  .cp-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 600;
+    color: #F1EFE8;
+    line-height: 1.2;
+    max-width: 480px;
+    margin-bottom: 14px;
+  }
+  .cp-hero p {
+    font-size: 15px;
+    color: #B4B2A9;
+    max-width: 420px;
+    line-height: 1.7;
+  }
+
+  .cp-contact-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--color-border-tertiary);
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+  }
+  .cp-contact-card {
+    background: var(--color-background-primary);
+    padding: 28px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .cp-contact-icon {
+    width: 40px; height: 40px;
+    border-radius: var(--border-radius-md);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+  }
+  .cp-icon-phone  { background: #E6F1FB; }
+  .cp-icon-email  { background: #E1F5EE; }
+  .cp-icon-office { background: #EEEDFE; }
+  .cp-contact-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-bottom: 4px;
+  }
+  .cp-contact-value {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    line-height: 1.4;
+  }
+  .cp-contact-sub {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    margin-top: 3px;
+  }
+
+  .cp-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--color-border-tertiary);
+  }
+
+  .cp-form-panel {
+    background: var(--color-background-primary);
+    padding: 36px 32px;
+  }
+  .cp-panel-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 6px;
+  }
+  .cp-panel-sub {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  .cp-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .cp-field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+  .cp-field label { font-size: 12px; font-weight: 500; color: var(--color-text-secondary); letter-spacing: 0.05em; }
+  .cp-field input,
+  .cp-field select,
+  .cp-field textarea {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    padding: 9px 12px;
+    border: 0.5px solid var(--color-border-secondary);
+    border-radius: var(--border-radius-md);
+    background: var(--color-background-secondary);
+    color: var(--color-text-primary);
+    transition: border-color 0.15s;
+    outline: none;
+    width: 100%;
+  }
+  .cp-field input:focus,
+  .cp-field select:focus,
+  .cp-field textarea:focus {
+    border-color: #378ADD;
+    box-shadow: 0 0 0 2px rgba(55,138,221,0.12);
+  }
+  .cp-field textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+
+  .cp-checkbox-row {
+    display: flex; align-items: flex-start; gap: 10px;
+    margin-bottom: 20px;
+  }
+  .cp-checkbox-row input[type=checkbox] { margin-top: 2px; flex-shrink: 0; }
+  .cp-checkbox-row span { font-size: 12px; color: var(--color-text-secondary); line-height: 1.6; }
+
+  .cp-submit {
+    width: 100%;
+    padding: 12px;
+    background: #0C1B2E;
+    color: #F1EFE8;
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .cp-submit:hover { opacity: 0.85; }
+  .cp-submit:active { transform: scale(0.99); }
+
+  .cp-right-panel {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cp-map-placeholder {
+    flex: 0 0 240px;
+    background: #E6EFF7;
+    position: relative;
+    overflow: hidden;
+  }
+  .cp-map-grid {
+    position: absolute; inset: 0;
+  }
+  .cp-map-label {
+    position: absolute;
+    bottom: 16px; left: 50%;
+    transform: translateX(-50%);
+    background: #0C1B2E;
+    color: #F1EFE8;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .cp-map-pin {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -60%);
+  }
+
+  .cp-office-info {
+    background: var(--color-background-primary);
+    padding: 24px 28px;
+    border-top: 0.5px solid var(--color-border-tertiary);
+  }
+  .cp-office-title {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-bottom: 14px;
+  }
+  .cp-offices { display: flex; flex-direction: column; gap: 14px; }
+  .cp-office-item {
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .cp-office-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+  .cp-dot-primary   { background: #1D9E75; }
+  .cp-dot-secondary { background: #378ADD; }
+  .cp-dot-tertiary  { background: #7F77DD; }
+  .cp-office-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+  .cp-office-addr { font-size: 12px; color: var(--color-text-secondary); margin-top: 1px; line-height: 1.5; }
+
+  .cp-faq-panel {
+    background: var(--color-background-primary);
+    padding: 36px 32px;
+    border-top: 0.5px solid var(--color-border-tertiary);
+    grid-column: 1 / -1;
+  }
+  .cp-faq-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 24px;
+  }
+  .cp-faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--color-border-tertiary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+  }
+  details.cp-faq-item {
+    background: var(--color-background-primary);
+    padding: 0;
+  }
+  details.cp-faq-item summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    list-style: none;
+    gap: 12px;
+    line-height: 1.4;
+  }
+  details.cp-faq-item summary::-webkit-details-marker { display: none; }
+  .cp-faq-arrow {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    flex-shrink: 0;
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+  details[open] .cp-faq-arrow { transform: rotate(90deg); }
+  .cp-faq-body {
+    padding: 0 20px 18px;
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    border-top: 0.5px solid var(--color-border-tertiary);
+    margin-top: -2px;
+    padding-top: 14px;
+  }
+
+  .cp-footer-bar {
+    background: #0C1B2E;
+    padding: 20px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .cp-footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #F1EFE8;
+    letter-spacing: 0.02em;
+  }
+  .cp-footer-links {
+    display: flex; gap: 24px;
+  }
+  .cp-footer-links a {
+    font-size: 12px;
+    color: #888780;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .cp-footer-links a:hover { color: #B4B2A9; }
+
+  @media (max-width: 700px) {
+    .cp-contact-strip { grid-template-columns: 1fr; }
+    .cp-main { grid-template-columns: 1fr; }
+    .cp-faq-grid { grid-template-columns: 1fr; }
+    .cp-row { grid-template-columns: 1fr; }
+    .cp-hero { padding: 40px 24px 32px; }
+    .cp-form-panel, .cp-faq-panel { padding: 28px 20px; }
+  }
+</style>
+
+<div class="cp-root">
+
+  <div class="cp-hero">
+    <div class="cp-eyebrow">S.B. Jain Institute of Technology, Management & Research</div>
+    <h1>Let's build your future together.</h1>
+    <p>Our institute provides quality education and helps students achieve success in their careers.</p>
+  </div>
+
+  <div class="cp-contact-strip">
+    <div class="cp-contact-card">
+      <div class="cp-contact-icon cp-icon-phone">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#185FA5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41a2 2 0 0 1 1.99-2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96A16 16 0 0 0 16 17l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+      </div>
+      <div>
+        <div class="cp-contact-label">Phone</div>
+        <div class="cp-contact-value">0712-2667777</div>
+        <div class="cp-contact-sub">Mon–Sat, 8 am – 5 pm IST</div>
+      </div>
+    </div>
+    <div class="cp-contact-card">
+      <div class="cp-contact-icon cp-icon-email">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><polyline points="2,4 12,14 22,4"></polyline></svg>
+      </div>
+      <div>
+        <div class="cp-contact-label">Email</div>
+        <div class="cp-contact-value">info@sbjit.edu.in</div>
+        <div class="cp-contact-sub">We usually respond within 24 hours</div>
+      </div>
+    </div>
+    <div class="cp-contact-card">
+      <div class="cp-contact-icon cp-icon-office">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+      </div>
+      <div>
+        <div class="cp-contact-label">Location</div>
+        <div class="cp-contact-value">Near Jain International School</div>
+        <div class="cp-contact-sub">Katol Road, Nagpur</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cp-main">
+
+    <div class="cp-form-panel">
+      <div class="cp-panel-title">Student Registration Form</div>
+      <div class="cp-panel-sub">Fill in your details for admission inquiry or course registration.</div>
+
+      <div class="cp-row">
+        <div class="cp-field">
+          <label>First Name</label>
+          <input type="text" placeholder="Enter name" />
+        </div>
+        <div class="cp-field">
+          <label>Last Name</label>
+          <input type="text" placeholder="Enter last name" />
+        </div>
+      </div>
+
+      <div class="cp-row">
+        <div class="cp-field">
+          <label>Student Email</label>
+          <input type="email" placeholder="Enter email" />
+        </div>
+        <div class="cp-field">
+          <label>Mobile Number</label>
+          <input type="tel" placeholder="Enter mobile number" />
+        </div>
+      </div>
+
+      <div class="cp-field">
+  <label>Department / Branch</label>
+  <select>
+    <option value="">Select Branch</option>
+
+    <optgroup label="Engineering">
+      <option>Computer Science Engineering (CSE)</option>
+      <option>Artificial Intelligence & Machine Learning (AIML)</option>
+      <option>Data Science</option>
+      <option>Electronics & Communication (ECE)</option>
+      <option>Mechanical Engineering</option>
+      <option>Civil Engineering</option>
+    </optgroup>
+
+    <optgroup label="Management & IT">
+      <option>BCA</option>
+      <option>MCA</option>
+      <option>MBA</option>
+    </optgroup>
+
+  </select>
+</div>
+
+      <div class="cp-field">
+  <label>Course Interested In</label>
+  <select>
+    <option value="">Select Course</option>
+
+    <optgroup label="Undergraduate Courses">
+      <option>B.Tech (Computer Science)</option>
+      <option>B.Tech (Mechanical)</option>
+      <option>B.Tech (Civil)</option>
+      <option>B.Tech (Electronics)</option>
+      <option>BCA</option>
+    </optgroup>
+
+    <optgroup label="Postgraduate Courses">
+      <option>MCA</option>
+      <option>MBA</option>
+      <option>M.Tech</option>
+    </optgroup>
+
+    <optgroup label="Other">
+      <option>Not sure yet</option>
+    </optgroup>
+
+  </select>
+</div>
+
+      <div class="cp-field">
+        <label>Admission Session</label>
+        <select>
+  <option value="">Select Session</option>
+  <option>2024-25</option>
+  <option>2025-26</option>
+</select>
+      </div>
+
+      <div class="cp-field">
+        <label>Additional Information</label>
+<textarea placeholder="Enter your details or queries..."></textarea>
+      </div>
+
+      <div class="cp-checkbox-row">
+        <input type="checkbox" id="consent" />
+        <span>I agree to share my details with S.B. Jain Institute for admission purposes.</span>
+      </div>
+
+      <button class="cp-submit" onclick="handleSubmit()">Submit &rarr;</button>
+    </div>
+
+    <div class="cp-right-panel">
+      <div class="cp-map-placeholder">
+  <iframe 
+    src="https://www.google.com/maps?q=SB+Jain+Institute+Nagpur&output=embed"
+    width="100%" 
+    height="240" 
+    style="border:0; border-radius:10px;"
+    allowfullscreen=""
+    loading="lazy">
+  </iframe>
+</div>
+
+      <div class="cp-office-info">
+        <div class="cp-office-title">Our Campus</div>
+        <div class="cp-offices">
+          <div class="cp-office-item">
+            <div class="cp-office-dot cp-dot-primary"></div>
+      <div>
+        <div class="cp-office-name">Main Campus</div>
+        <div class="cp-office-addr">
+          S.B. Jain Institute<br>
+          Katol Road, Nagpur<br>
+          Maharashtra, India
+        </div>
+      </div>
+          </div>
+          <div class="cp-office-item">
+            <div class="cp-office-dot cp-dot-secondary"></div>
+      <div>
+        <div class="cp-office-name">City Office</div>
+        <div class="cp-office-addr">
+          Sitabuldi, Nagpur
+        </div>
+      </div>
+          </div>
+          <div class="cp-office-item">
+            <div class="cp-office-dot cp-dot-tertiary"></div>
+      <div>
+        <div class="cp-office-name">Hostel Facility</div>
+        <div class="cp-office-addr">
+          Near Campus Area
+        </div>
+      </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cp-faq-panel">
+      <div class="cp-faq-header">
+        <div>
+          <div class="cp-eyebrow" style="color:#1D9E75; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; font-weight:500; margin-bottom:6px;">Frequently asked</div>
+          <div class="cp-panel-title">Common questions</div>
+        </div>
+      </div>
+
+      <div class="cp-faq-grid">
+
+  <details class="cp-faq-item">
+    <summary>What courses are offered at the institute? <span class="cp-faq-arrow">&#8250;</span></summary>
+    <div class="cp-faq-body">
+      We offer various undergraduate and postgraduate courses such as B.Tech, BCA, MCA, MBA, and M.Tech across different departments.
+    </div>
+  </details>
+
+  <details class="cp-faq-item">
+    <summary>What is the admission process? <span class="cp-faq-arrow">&#8250;</span></summary>
+    <div class="cp-faq-body">
+      Students can apply through the official website or visit the campus. Admission is based on entrance exams and merit criteria as per university guidelines.
+    </div>
+  </details>
+
+  <details class="cp-faq-item">
+    <summary>What are the fees for different courses? <span class="cp-faq-arrow">&#8250;</span></summary>
+    <div class="cp-faq-body">
+      Fees vary depending on the course. For detailed information, students can contact the admission office or visit the official website.
+    </div>
+  </details>
+
+  <details class="cp-faq-item">
+    <summary>Does the college provide placement opportunities? <span class="cp-faq-arrow">&#8250;</span></summary>
+    <div class="cp-faq-body">
+      Yes, the institute has a dedicated placement cell that helps students get placed in reputed companies through campus recruitment drives.
+    </div>
+  </details>
+
+  <details class="cp-faq-item">
+    <summary>Is hostel facility available? <span class="cp-faq-arrow">&#8250;</span></summary>
+    <div class="cp-faq-body">
+      Yes, hostel facilities are available for both boys and girls with proper security and basic amenities.
+    </div>
+  </details>
+
+  <details class="cp-faq-item">
+    <summary>How can I contact the institute? <span class="cp-faq-arrow">&#8250;</span></summary>
+    <div class="cp-faq-body">
+      You can contact us via phone, email, or by visiting the campus at Katol Road, Nagpur.
+    </div>
+  </details>
+
+</div>
+
+  <div class="cp-footer-bar">
+    <div class="cp-footer-logo">S.B. Jain Institute of Technology, Management & Research</div>
+    <div class="cp-footer-links">
+      <a href="#">Privacy policy</a>
+      <a href="#">Terms of service</a>
+      <a href="#">Careers</a>
+    </div>
+  </div>
+
+</div>
+
+<div id="toast" style="display:none; position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:#0C1B2E; color:#F1EFE8; padding:12px 24px; border-radius:8px; font-size:13px; font-family:'DM Sans',sans-serif; z-index:100;">
+  Inquiry submitted — we'll be in touch shortly.
+</div>
+
+<script>
+function handleSubmit() {
+  const t = document.getElementById('toast');
+  t.style.display = 'block';
+  setTimeout(() => { t.style.display = 'none'; }, 3500);
+}
+</script>
